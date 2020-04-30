@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    l<link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <title>Namecodes</title>
+  </head>
+  <body>
+
+    <!-- Main page container -->
+    <div class="container">
+
+      <h1>Namecodes</h1>
+
+      <!-- Enter/create room -->
+      <div class="container" id="enter">
+
+        <form id="credentials" action="">
+          <label for="roomName">Room Name:</label><br>
+          <input type="text" id="roomName" name="roomName"><br>
+          <label for="nickname">Nickname:</label><br>
+          <input type="text" id="nickname" name="nickname"><br>
+        </form>
+
+        <form id="createForm" action="">
+          <input type="submit" value="Create room">
+        </form>
+
+        <form id="joinForm" action="">
+          <input type="submit" value="Join room">
+        </form>
+
+      <!-- /Enter/create room -->
+      </div>
+
+      <br>
+
+      <!-- New Game -->
+      <div class="container">
+          <button class="btn btn-primary" id="newGame">New Game</button>
+      <!-- /New Game -->    
+      </div>
+
+      <br>
+
+      <!-- Score -->
+      <div class="container">
+          <h5>9 - 8</h5>
+      <!-- /Score -->    
+      </div>
+
+      <br>
+
+      <!-- Play game -->
+      <div class="container" id="play">
+
+        <div class="card-deck">
+          
+          <div class="card text-center" id="card-0" onclick="clickCard(0)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-0">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-1" onclick="clickCard(1)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-1">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-2" onclick="clickCard(2)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-2">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-3" onclick="clickCard(3)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-3">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-4" onclick="clickCard(4)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-4">Word</p>
+            </div>
+          </div>
+
+        </div>
+        <br>
+        <div class="card-deck">
+
+          <div class="card text-center" id="card-5" onclick="clickCard(5)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-5">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-6" onclick="clickCard(6)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-6">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-7" onclick="clickCard(7)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-7">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-8" onclick="clickCard(8)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-8">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-9" onclick="clickCard(9)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-9">Word</p>
+            </div>
+          </div>
+
+        </div>
+        <br>
+        <div class="card-deck">
+
+          <div class="card text-center" id="card-10" onclick="clickCard(10)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-10">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-11" onclick="clickCard(11)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-11">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-12" onclick="clickCard(12)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-12">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-13" onclick="clickCard(13)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-13">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-14" onclick="clickCard(14)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-14">Word</p>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="card-deck">
+
+          <div class="card text-center" id="card-15" onclick="clickCard(15)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-15">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-16" onclick="clickCard(16)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-16">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-17" onclick="clickCard(17)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-17">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-18" onclick="clickCard(18)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-18">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-19" onclick="clickCard(19)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-19">Word</p>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="card-deck">
+
+          <div class="card text-center" id="card-20" onclick="clickCard(20)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-20">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-21" onclick="clickCard(21)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-21">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-22" onclick="clickCard(22)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-22">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-23" onclick="clickCard(23)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-23">Word</p>
+            </div>
+          </div>
+
+          <div class="card text-center" id="card-24" onclick="clickCard(24)">
+            <div class="card-body">
+              <p class="bold" id="cardWord-24">Word</p>
+            </div>
+          </div>
+
+        </div>
+        <br>
+
+        </div>
+
+       <!-- /Play game -->
+      </div>
+
+    </div>
+
+    <!-- App JS -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/client.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
