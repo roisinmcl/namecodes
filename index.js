@@ -17,43 +17,113 @@ app.get('/', (req, res) => {
 
 
 // Server Logic
+// TODO: set up logic for rooms/multiple simultaneous games
 
 PLAYERS = []
+WINNER = "none"
 BOARD = {}
 BOARD_WORDS = {}
 BOARD_COLORS = {}
+BOARD_COLORS_REVEALED = {}
+RED_SCORE = 9
+BLUE_SCORE = 8
+GAME_IN_PROGRESS = false
+GAME_OVER = false
+
+// Constants
+// TODO: Change colors codes to numbers
 R = "red"
 B = "blue"
 N = "neutral"
 D = "death"
-RED_SCORE = 0
-BLUE_SCORE = 0
-GAME_IN_PROGRESS = false
+U = "unpicked"
+RED_TEAM = 0
+BLUE_TEAM = 1
 
-// Server connection w/ a socket
+// Socket connects to the server
 io.on('connection', (socket) => {
 
+  // Add player socket to game list
   PLAYERS.push(socket.id);
 
+  // If there's a game in progress when player joins, set up their board
   if (GAME_IN_PROGRESS) {
+    console.log("Board from game in prog: ");
+    console.log(BOARD);
     io.emit("newGameResp", JSON.stringify(BOARD));
+    
+    // Update scores and winner if necessary
+    io.emit("scoreUpdate", {"red": RED_SCORE, "blue": BLUE_SCORE});
+
+    if (WINNER == R) {
+      GAME_OVER = true
+      io.emit("winUpdate", "red");
+    }
+
+    if (WINNER == B) {
+      GAME_OVER = true
+      io.emit("winUpdate", "blue");
+    }
+  } else {
+    initGame();
+    io.emit("newGameResp", JSON.stringify(BOARD));
+    io.emit("scoreUpdate", {"red": RED_SCORE, "blue": BLUE_SCORE});
   }
 
   console.log(PLAYERS);
 
+  // Handle new game
   socket.on("newGameReq", (msg) => {
     console.log("got data from new game req");
     initGame();
+    updateScores();
     io.emit("newGameResp", JSON.stringify(BOARD));
+    io.emit("scoreUpdate", {"red": RED_SCORE, "blue": BLUE_SCORE});
+  });
+
+  // Handle requets to be codemaster
+  // TODO: make codemaster status sticky
+  socket.on("codemasterReq", (msg) => {
+    console.log("got codemaster req");
+    socket.emit("codemasterResp", JSON.stringify(BOARD));
   });
 
 
+  // Handle card click
   socket.on("cardClickReq", (msg) => {
-    console.log("got data from card click: " + msg);
-    io.emit("cardClickResp", {'cardNum': 'insert number', 'color': 'red'});
+    console.log("got data from card click: " + JSON.stringify(msg));
+    // Guess a card
+    guessCard(msg["team"], msg["card"]);
+
+    // Response fomat: card number, card color
+    io.emit("cardClickResp", JSON.stringify(BOARD));
+
+    // Send score update
+    io.emit("scoreUpdate", {"red": RED_SCORE, "blue": BLUE_SCORE});
+
+    let cardIndex = parseInt(msg["card"])
+    let teamName = parseInt(msg["team"]) ? "blue" : "red";
+    console.log("card clicked index:" + cardIndex);
+    let deathCardRedsTurn = BOARD_COLORS[cardIndex] == D && teamName == R;
+    console.log("death card red?" + deathCardRedsTurn);
+    let deathCardBluesTurn = BOARD_COLORS[cardIndex] == D && teamName == B;
+    console.log("death card blue?" + deathCardBluesTurn);
+    if (!GAME_OVER && (RED_SCORE == 0 || deathCardBluesTurn)) {
+      GAME_OVER = true
+      WINNER = R
+      console.log("Red wins");
+      io.emit("winUpdate", "red");
+    }
+
+    if (!GAME_OVER && (BLUE_SCORE == 0 || deathCardRedsTurn)) {
+      GAME_OVER = true
+      WINNER = B
+      console.log("Blue wins");
+      io.emit("winUpdate", "blue");
+    }
   });
 
-
+  // Handle exit player
   socket.on('disconnect', () => {
     PLAYERS.splice(PLAYERS.indexOf(socket.id), 1);
     console.log(PLAYERS);
@@ -72,8 +142,13 @@ function initGame() {
   BOARD = {}
   BOARD_WORDS = {}
   BOARD_COLORS = {}
+  BOARD_COLORS_REVEALED = {}
+  RED_SCORE = 9
+  BLUE_SCORE = 8
+  WINNER = "none"
 
   GAME_IN_PROGRESS = true
+  GAME_OVER = false
   
   // Assign words 
 
@@ -125,12 +200,49 @@ function initGame() {
     }
   }
 
-  console.log(BOARD_COLORS);
+  for (i = 0; i < 25; i++) {
+    BOARD_COLORS_REVEALED[i] = U;
+  }
 
-  BOARD = {"words": BOARD_WORDS, "colors": BOARD_COLORS}
+  console.log(BOARD_COLORS);
+  console.log(BOARD_COLORS_REVEALED);
+
+  BOARD = {"words": BOARD_WORDS, "colors": BOARD_COLORS_REVEALED, "colorsAll": BOARD_COLORS}
 
 }
 
+function guessCard(team, cardNum) {
+
+  let cardColor = BOARD_COLORS[cardNum];
+  // update the guessed color
+  BOARD_COLORS_REVEALED[cardNum] = cardColor;
+
+  console.log(BOARD_COLORS_REVEALED);
+  console.log("BOARD_COLORS_REVEALED:");
+
+  BOARD = {"words": BOARD_WORDS, "colors": BOARD_COLORS_REVEALED, "colorsAll": BOARD_COLORS}
+  console.log("BOARD:");
+  console.log(BOARD);
+
+  // TODO: check game over
+  updateScores();
+  return {"cardNum": cardNum, "color": cardColor};
+}
+
+function updateScores() {
+  let redRemaining = 9;
+  let blueRemaining = 8;
+  for (i = 0; i < 25; i++) {
+    if (BOARD_COLORS_REVEALED[i] == R) {
+      redRemaining--;
+    }
+    if (BOARD_COLORS_REVEALED[i] == B) {
+      blueRemaining--;
+    }
+  }
+  RED_SCORE = redRemaining;
+  BLUE_SCORE = blueRemaining;
+}
 
 const TEST_WORD_LIST = [
 "turtle",
