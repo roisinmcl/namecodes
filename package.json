@@ -1,9 +1,19 @@
 {
   "name": "namecodes",
   "version": "0.0.1",
-  "description": "oneline codenames app",
+  "description": "Online Codenames app",
   "dependencies": {
     "express": "^4.15.2",
     "socket.io": "^2.3.0"
   }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roisinmcl/namecodes.git"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+  },
 }
