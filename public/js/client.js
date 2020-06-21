@@ -27,6 +27,7 @@ IS_CODEMASTER = false
 // Set up a new game
 let newGame = document.getElementById('newGame')
 newGame.onclick = () => {
+  IS_CODEMASTER = false
   socket.emit("newGameReq", "")
 }
 

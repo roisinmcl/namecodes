@@ -130,7 +130,7 @@ io.on('connection', (socket) => {
   });
 });
 
-http.listen(3000, () => {
+http.listen(8080, () => {
   console.log('listening on *:3000');
 });
 
